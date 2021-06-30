@@ -13,7 +13,7 @@
 
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">BackOffice</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -124,9 +124,20 @@ try {
     const data = await fetch(url, {
         method : "POST",
         headers: {
-"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNmE2NmIzNTgxNzAwMTVjMjI3NDQiLCJpYXQiOjE2MjUwNTc4OTUsImV4cCI6MTYyNjI2NzQ5NX0.q8xjy6ChuWrrWZ7WQ2j3rhG1lEn-MqM1cJ42mBCNqss"
-}
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNmE2NmIzNTgxNzAwMTVjMjI3NDQiLCJpYXQiOjE2MjUwNTc4OTUsImV4cCI6MTYyNjI2NzQ5NX0.q8xjy6ChuWrrWZ7WQ2j3rhG1lEn-MqM1cJ42mBCNqss",
+            
+            "Content-Type": "application/json"
+            
+            
+        },
+        body: json.stringfy(event)
     })
+
+if(data.ok){
+    const Product = await data.json()
+    alert("Data is readable" + product._id)
+}
+
 
 } catch (error) {
     
