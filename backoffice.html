@@ -84,7 +84,7 @@
 
 
   <script>
-    const submitBtn = async (product) => {
+    const submitBtn = async () => {
       const url = "https://striveschool-api.herokuapp.com/api/product/"
 
       const event = {
@@ -119,7 +119,9 @@
       }
     }
 
-
+window.onload =  () =>{
+  // product()
+}
 
 
 

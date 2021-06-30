@@ -15,10 +15,11 @@
 
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Amazon</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-  
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
@@ -27,23 +28,21 @@
         <li class="nav-item">
           <a class="nav-link" href="backoffice.html">BackOffice</a>
         </li>
-        
-      <form class="form-inline my-2 my-lg-0">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-      </form>
+
+        <form class="form-inline my-2 my-lg-0">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
   </nav>
-  
-    <div class="container">
-      <div class="row justify-content-center">
-				<div class="col-md-6">
-					<h2 class="mt-5 mb-3">Products</h2>
-					<ul id="addProduct" class="list-group"></ul>
-				</div>
-</div>
-    
-  
+
+  <div class="container">
+    <div id="row" class="row justify-content-center">
+
+    </div>
+  </div>
+
+
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
     integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
   </script>
@@ -52,57 +51,49 @@
   </script>
 
   <script>
-
-     
-
-     const fetchProducts = async () => {
+    const fetchProducts = async () => {
       try {
         let response = await fetch("https://striveschool-api.herokuapp.com/api/product/", {
-          headers : {
-            Authorization: 
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNmE2NmIzNTgxNzAwMTVjMjI3NDQiLCJpYXQiOjE2MjUwNTc4OTUsImV4cCI6MTYyNjI2NzQ5NX0.q8xjy6ChuWrrWZ7WQ2j3rhG1lEn-MqM1cJ42mBCNqss",
-          },
-        }
-      
-      )
+            headers: {
+              Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MGRjNmE2NmIzNTgxNzAwMTVjMjI3NDQiLCJpYXQiOjE2MjUwNTc4OTUsImV4cCI6MTYyNjI2NzQ5NX0.q8xjy6ChuWrrWZ7WQ2j3rhG1lEn-MqM1cJ42mBCNqss",
+            },
+          }
+
+        )
 
         const fetchedData = await response.json()
-        console.log(fetchedData);
-        
-        if (products.length > 0) {
-						products.forEach(products => {
-							const listItem = document.createElement("li");
-							listItem.classList.add(
-								"list-group-item",
-								"d-flex",
-								"justify-content-between"
-							);
+          console.log(fetchedData);
 
-							listItem.innerHTML = `<img src="${products.imageUrl}" alt="" width= '80px'>
-              <span>${products.brand}</span>
-              <span class="badge badge-dark">${products.price}€</span>
-            </span><span>${products.description}</span>`;
-							addProduct.appendChild(listItem);
-						});
-					} else {
-						addProduct.innerHTML = `<div class="alert alert-info" role="alert">
-                                        No events planned yet!
-                                        </div>`;
-					}
+          const row = document.querySelector("#row")
+        fetchedData.forEach(prod => {
+      
+          row.innerHTML += `
+          <div class="card" style="width: 18rem;">
+  <img src="${prod.imageUrl}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <p class="card-text">${prod.name}</p>
+    <p class="card-text">${prod.brand}</p>
+    <p class="card-text">${prod.price}</p>
+    <p class="card-text">${prod.description}</p>
+  </div>
+</div>
+          `
+
+        });
+
+
 
       } catch (error) {
         console.error("wrong");
       }
 
     }
-    
+
     window.onload = () => {
-
-    fetchProducts()
-
-    
+      fetchProducts()
     }
-    
+
+
   </script>
 
 
